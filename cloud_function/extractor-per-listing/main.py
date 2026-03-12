@@ -108,17 +108,15 @@ def _parse_run_id_as_iso(run_id: str) -> str:
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 # -------------------- PARSE A LISTING --------------------
-# Precompile regexes
-PRICE_RE = re.compile(r"\$\s*([\d,]+)")
-YEAR_RE = re.compile(r"\b(19\d{2}|20\d{2})\b")
-MAKE_MODEL_RE = re.compile(
-    r"\b(?!(?:Contact Information|Email|Phone))([A-Z][a-zA-Z]+)[\s-]+([A-Z][a-zA-Z0-9]+)\b"
-)
-DOORS_RE = re.compile(r"(\d)[- ]?door", re.I)
-FUEL_RE = re.compile(r"\b(diesel|gas|gasoline|electric|hybrid)\b", re.I)
-TRANS_RE = re.compile(r"\b(automatic|manual|cvT|cvt)\b", re.I)
-TRUCK_RE = re.compile(r"\b(truck|pickup|towing)\b", re.I)
+# Precompiled regex
+PRICE_RE = re.compile(r"\$?([\d,]+)")
+YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
+MAKE_MODEL_RE = re.compile(r"([A-Z][a-zA-Z]+)\s+([A-Z][a-zA-Z0-9]+)")
 
+DOORS_RE = re.compile(r"(\d)[ -]?D\b", re.I)  # e.g., "4D" or "4 D"
+FUEL_RE = re.compile(r"\b(gas|gasoline|diesel|electric|hybrid)\b", re.I)
+TRANS_RE = re.compile(r"\b(auto|automatic|manual|mt|at)\b", re.I)
+TRUCK_RE = re.compile(r"\btruck\b", re.I)
 
 def parse_listing(text: str) -> dict:
     d = {}
@@ -161,7 +159,7 @@ def parse_listing(text: str) -> dict:
             except ValueError:
                 mi = None
     if mi is None:
-        m3 = re.search(r"(\d{1,3}(?:[,\d]{3})*)\s*(?:mi|mile|miles)\b", text, re.I)
+        m3 = re.search(r"(\d{1,3}(?:[,\d]{3})*)\s*(?:mi|mile|miles)?\b", text, re.I)
         if m3:
             try:
                 mi = int(re.sub(r"[^\d]", "", m3.group(1)))
@@ -170,7 +168,6 @@ def parse_listing(text: str) -> dict:
     if mi is not None:
         d["mileage"] = mi
 
-    # New fields
     # Number of doors
     doors = DOORS_RE.search(text)
     if doors:
@@ -178,18 +175,28 @@ def parse_listing(text: str) -> dict:
             d["num_doors"] = int(doors.group(1))
         except ValueError:
             d["num_doors"] = None
+    else:
+        d["num_doors"] = None
 
     # Fuel type
     fuel = FUEL_RE.search(text)
     if fuel:
         d["fuel_type"] = fuel.group(1).lower()
+    else:
+        d["fuel_type"] = None
 
     # Transmission
     trans = TRANS_RE.search(text)
     if trans:
-        d["transmission"] = trans.group(1).lower()
+        t = trans.group(1).lower()
+        if t in ["auto", "automatic", "at"]:
+            d["transmission"] = "automatic"
+        elif t in ["manual", "mt"]:
+            d["transmission"] = "manual"
+    else:
+        d["transmission"] = None
 
-    # Is truck?
+    # Is it a truck?
     d["is_truck"] = bool(TRUCK_RE.search(text))
 
     return d
