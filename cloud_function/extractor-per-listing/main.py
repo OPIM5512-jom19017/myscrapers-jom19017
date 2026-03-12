@@ -108,9 +108,22 @@ def _parse_run_id_as_iso(run_id: str) -> str:
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 # -------------------- PARSE A LISTING --------------------
+# Precompile regexes
+PRICE_RE = re.compile(r"\$\s*([\d,]+)")
+YEAR_RE = re.compile(r"\b(19\d{2}|20\d{2})\b")
+MAKE_MODEL_RE = re.compile(
+    r"\b(?!(?:Contact Information|Email|Phone))([A-Z][a-zA-Z]+)[\s-]+([A-Z][a-zA-Z0-9]+)\b"
+)
+DOORS_RE = re.compile(r"(\d)[- ]?door", re.I)
+FUEL_RE = re.compile(r"\b(diesel|gas|gasoline|electric|hybrid)\b", re.I)
+TRANS_RE = re.compile(r"\b(automatic|manual|cvT|cvt)\b", re.I)
+TRUCK_RE = re.compile(r"\b(truck|pickup|towing)\b", re.I)
+
+
 def parse_listing(text: str) -> dict:
     d = {}
 
+    # Price
     m = PRICE_RE.search(text)
     if m:
         try:
@@ -118,6 +131,7 @@ def parse_listing(text: str) -> dict:
         except ValueError:
             pass
 
+    # Year
     y = YEAR_RE.search(text)
     if y:
         try:
@@ -125,62 +139,58 @@ def parse_listing(text: str) -> dict:
         except ValueError:
             pass
 
+    # Make & Model
     mm = MAKE_MODEL_RE.search(text)
     if mm:
         d["make"] = mm.group(1)
         d["model"] = mm.group(2)
 
-    # mileage variants
+    # Mileage
     mi = None
     m1 = re.search(r"(?:mileage|odometer)\s*[:\-]?\s*([\d,]+)", text, re.I)
     if m1:
-        try: mi = int(m1.group(1).replace(",", ""))
-        except ValueError: mi = None
+        try:
+            mi = int(m1.group(1).replace(",", ""))
+        except ValueError:
+            mi = None
     if mi is None:
         m2 = re.search(r"(\d+(?:\.\d+)?)\s*k\s*(?:mi|mile|miles)\b", text, re.I)
         if m2:
-            try: mi = int(float(m2.group(1)) * 1000)
-            except ValueError: mi = None
+            try:
+                mi = int(float(m2.group(1)) * 1000)
+            except ValueError:
+                mi = None
     if mi is None:
         m3 = re.search(r"(\d{1,3}(?:[,\d]{3})*)\s*(?:mi|mile|miles)\b", text, re.I)
         if m3:
-            try: mi = int(re.sub(r"[^\d]", "", m3.group(1)))
-            except ValueError: mi = None
+            try:
+                mi = int(re.sub(r"[^\d]", "", m3.group(1)))
+            except ValueError:
+                mi = None
     if mi is not None:
         d["mileage"] = mi
 
-    # new fields
-
-    # transmission
-    if re.search(r"\bautomatic\b", text, re.I):
-        d["transmission"] = "automatic"
-    elif re.search(r"\bmanual\b", text, re.I):
-        d["transmission"] = "manual"
-
-    # fuel type
-    if re.search(r"\bdiesel\b", text, re.I):
-        d["fuel_type"] = "diesel"
-    elif re.search(r"\belectric\b", text, re.I):
-        d["fuel_type"] = "electric"
-    elif re.search(r"\bhybrid\b", text, re.I):
-        d["fuel_type"] = "hybrid"
-    elif re.search(r"\bgas\b|\bgasoline\b", text, re.I):
-        d["fuel_type"] = "gasoline"
-
-    # number of doors
-    doors = re.search(r"\b([24])\s*door", text, re.I)
+    # New fields
+    # Number of doors
+    doors = DOORS_RE.search(text)
     if doors:
         try:
             d["num_doors"] = int(doors.group(1))
         except ValueError:
-            pass
+            d["num_doors"] = None
 
-    # simple truck flag
-    if re.search(r"\btruck\b|\bpickup\b", text, re.I):
-        d["is_truck"] = True
-    else:
-        d["is_truck"] = False
+    # Fuel type
+    fuel = FUEL_RE.search(text)
+    if fuel:
+        d["fuel_type"] = fuel.group(1).lower()
 
+    # Transmission
+    trans = TRANS_RE.search(text)
+    if trans:
+        d["transmission"] = trans.group(1).lower()
+
+    # Is truck?
+    d["is_truck"] = bool(TRUCK_RE.search(text))
 
     return d
 
