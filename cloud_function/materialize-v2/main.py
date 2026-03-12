@@ -128,7 +128,16 @@ def materialize_v2_http(request: Request):
         if not BUCKET_NAME:
             return jsonify({"ok": False, "error": "missing GCS_BUCKET env"}), 500
 
-        run_ids = _list_run_ids(BUCKET_NAME, STRUCTURED_PREFIX)
+        # Get run_id from request if provided
+        request_json = request.get_json(silent=True) or {}
+        run_id_param = request.args.get("run_id") or request_json.get("run_id")
+
+        if run_id_param:
+            run_ids = [run_id_param]  # process just this run
+        else:
+            
+            run_ids = _list_run_ids(BUCKET_NAME, STRUCTURED_PREFIX)
+
         if not run_ids:
             return jsonify({"ok": False, "error": "no runs found"}), 200
 
