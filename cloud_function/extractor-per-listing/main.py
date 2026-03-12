@@ -149,6 +149,39 @@ def parse_listing(text: str) -> dict:
     if mi is not None:
         d["mileage"] = mi
 
+    # new fields
+
+    # transmission
+    if re.search(r"\bautomatic\b", text, re.I):
+        d["transmission"] = "automatic"
+    elif re.search(r"\bmanual\b", text, re.I):
+        d["transmission"] = "manual"
+
+    # fuel type
+    if re.search(r"\bdiesel\b", text, re.I):
+        d["fuel_type"] = "diesel"
+    elif re.search(r"\belectric\b", text, re.I):
+        d["fuel_type"] = "electric"
+    elif re.search(r"\bhybrid\b", text, re.I):
+        d["fuel_type"] = "hybrid"
+    elif re.search(r"\bgas\b|\bgasoline\b", text, re.I):
+        d["fuel_type"] = "gasoline"
+
+    # number of doors
+    doors = re.search(r"\b([24])\s*door", text, re.I)
+    if doors:
+        try:
+            d["num_doors"] = int(doors.group(1))
+        except ValueError:
+            pass
+
+    # simple truck flag
+    if re.search(r"\btruck\b|\bpickup\b", text, re.I):
+        d["is_truck"] = True
+    else:
+        d["is_truck"] = False
+
+
     return d
 
 # -------------------- HTTP ENTRY --------------------
