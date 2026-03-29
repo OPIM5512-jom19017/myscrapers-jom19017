@@ -4,21 +4,20 @@ import json
 import os
 import re
 from datetime import datetime, timezone
-from typing import Dict, Iterable
+from typing import Dict
 
 from flask import Request, jsonify
 from google.cloud import storage
 
 # -------------------- ENV --------------------
 BUCKET_NAME = os.getenv("GCS_BUCKET")                      
-LLM_PREFIX  = os.getenv("LLM_PREFIX", "extractor-llm")    # LLM JSONL outputs
-
+LLM_PREFIX  = os.getenv("LLM_PREFIX", "extractor-llm")    # root prefix
 storage_client = storage.Client()
 
 RUN_ID_ISO_RE   = re.compile(r"^\d{8}T\d{6}Z$")
 RUN_ID_PLAIN_RE = re.compile(r"^\d{14}$")
 
-# -------------------- Helpers --------------------
+# -------------------- HELPERS --------------------
 def _list_run_ids(bucket: str, llm_prefix: str) -> list[str]:
     it = storage_client.list_blobs(bucket, prefix=f"{llm_prefix}/", delimiter="/")
     for _ in it:
@@ -32,9 +31,9 @@ def _list_run_ids(bucket: str, llm_prefix: str) -> list[str]:
                 run_ids.append(rid)
     return sorted(run_ids)
 
-def _jsonl_records_for_run(bucket: str, llm_prefix: str, run_id: str):
+def _jsonl_llm_records(bucket: str, llm_prefix: str, run_id: str):
     b = storage_client.bucket(bucket)
-    prefix = f"{llm_prefix}/run_id={run_id}/jsonl/"
+    prefix = f"{llm_prefix}/run_id={run_id}/jsonl_llm/"  # << use new folder
     for blob in b.list_blobs(prefix=prefix):
         if not blob.name.endswith(".jsonl"):
             continue
@@ -60,22 +59,18 @@ def _open_gcs_text_writer(bucket: str, key: str):
     blob = b.blob(key)
     return blob.open("w")
 
-# -------------------- Materialize LLM --------------------
+# -------------------- MATERIALIZE LLM --------------------
 def materialize_llm_http(request: Request):
     """
-    HTTP POST to aggregate all LLM JSONL outputs into one CSV.
+    Aggregate all LLM JSONL outputs into one CSV (including new fields).
     """
     try:
         if not BUCKET_NAME:
             return jsonify({"ok": False, "error": "missing GCS_BUCKET env"}), 500
 
-        # process only a single run
         request_json = request.get_json(silent=True) or {}
         run_id_param = request.args.get("run_id") or request_json.get("run_id")
-        if run_id_param:
-            run_ids = [run_id_param]
-        else:
-            run_ids = _list_run_ids(BUCKET_NAME, LLM_PREFIX)
+        run_ids = [run_id_param] if run_id_param else _list_run_ids(BUCKET_NAME, LLM_PREFIX)
 
         if not run_ids:
             return jsonify({"ok": False, "error": f"no runs found under {LLM_PREFIX}/"}), 200
@@ -85,35 +80,32 @@ def materialize_llm_http(request: Request):
         written_records = 0
 
         for rid in run_ids:
-            for rec in _jsonl_records_for_run(BUCKET_NAME, LLM_PREFIX, rid):
+            for rec in _jsonl_llm_records(BUCKET_NAME, LLM_PREFIX, rid):
                 pid = rec.get("post_id")
                 if not pid:
                     skipped_records += 1
-                    print(f"[DEBUG] Skipping record, missing post_id: {rec}")
                     continue
                 prev = latest_by_post.get(pid)
                 if (prev is None) or (_run_id_to_dt(rec["run_id"]) > _run_id_to_dt(prev["run_id"])):
                     latest_by_post[pid] = rec
 
         records = list(latest_by_post.values())
+        if not records:
+            return jsonify({"ok": True, "message": "no records found", "runs_scanned": len(run_ids)}), 200
 
-        # --- Dynamic columns (all keys across all records) ---
+        # --- Collect all keys across all records (dynamic columns) ---
         columns = set()
         for r in records:
             columns.update(r.keys())
         columns = sorted(columns)
 
         final_key = f"{LLM_PREFIX}/datasets/listings_master-llm.csv"
-        if records:
-            with _open_gcs_text_writer(BUCKET_NAME, final_key) as out:
-                writer = csv.DictWriter(out, fieldnames=columns)
-                writer.writeheader()
-                for r in records:
-                    writer.writerow(r)
-                    written_records += 1
-                    print(f"[DEBUG] Wrote record for post_id={r.get('post_id')}")
-
-        print(f"[INFO] Runs scanned: {len(run_ids)}, Skipped records: {skipped_records}, Written records: {written_records}")
+        with _open_gcs_text_writer(BUCKET_NAME, final_key) as out:
+            writer = csv.DictWriter(out, fieldnames=columns)
+            writer.writeheader()
+            for r in records:
+                writer.writerow(r)
+                written_records += 1
 
         return jsonify({
             "ok": True,
@@ -126,5 +118,4 @@ def materialize_llm_http(request: Request):
         })
 
     except Exception as e:
-        print(f"[ERROR] {type(e).__name__}: {e}")
         return jsonify({"ok": False, "error": f"{type(e).__name__}: {e}"}), 500
