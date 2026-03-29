@@ -169,8 +169,17 @@ def _vertex_extract_fields(raw_text: str) -> dict:
             "make": {"type": "string", "nullable": True},
             "model": {"type": "string", "nullable": True},
             "mileage": {"type": "integer", "nullable": True},
+
+            # New LLM fields
+            "condition": {"type": "string", "nullable": True},
+            "title_status": {"type": "string", "nullable": True},
+            "seller_type": {"type": "string", "nullable": True},
+            "vehicle_type": {"type": "string", "nullable": True},
+            "has_issues": {"type": "boolean", "nullable": True},
         },
-        "required": ["price", "year", "make", "model", "mileage"]
+        "required": ["price", "year", "make", "model", "mileage", 
+                     "condition", "title_status", "seller_type",
+                    "vehicle_type", "has_issues"]
     }
 
     # System instruction (will be prepended to the prompt)
@@ -178,7 +187,7 @@ def _vertex_extract_fields(raw_text: str) -> dict:
         "Extract ONLY the following fields from the input text. "
         "Return a strict JSON object that conforms to the provided schema. "
         "If a value is not present, use null. "
-        "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
+        "Rules: integers for price/year/mileage; price in USD; mileage in miles; has_issues must be true or false"
         "do not infer values not explicitly present; do not add extra keys."
     )
 
