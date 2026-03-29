@@ -22,12 +22,12 @@ env:
   BUCKET_NAME: ${{ vars.BUCKET_NAME }}
   TIMEOUT_SECONDS: "900"
   MEMORY: "2Gi"
-  LLM_PREFIX: "extractor-llm"
+  LLM_PREFIX: "structured"           # <- updated to read from the correct folder
   RUNTIME_SA: ${{ vars.RUNTIME_SA }}
   DEPLOYER_SA: ${{ vars.DEPLOYER_SA }}
   WORKLOAD_IDENTITY_PROVIDER: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
   SCHEDULE_BODY: ${{ vars.MATERIALIZE_LLM_BODY || '{}' }}
-  CRON_EXPR: "50 * * * *"   # run at :50 each hour (so it doesn't collide with materialize-v2)
+  CRON_EXPR: "45 * * * *"   # run at :45 each hour
 
 jobs:
   deploy:
