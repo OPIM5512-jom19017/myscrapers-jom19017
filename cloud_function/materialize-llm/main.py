@@ -69,7 +69,7 @@ def materialize_llm_http(request: Request):
         if not BUCKET_NAME:
             return jsonify({"ok": False, "error": "missing GCS_BUCKET env"}), 500
 
-        # Optional: process only a single run
+        # process only a single run
         request_json = request.get_json(silent=True) or {}
         run_id_param = request.args.get("run_id") or request_json.get("run_id")
         if run_id_param:
@@ -81,10 +81,15 @@ def materialize_llm_http(request: Request):
             return jsonify({"ok": False, "error": f"no runs found under {LLM_PREFIX}/"}), 200
 
         latest_by_post: Dict[str, Dict] = {}
+        skipped_records = 0
+        written_records = 0
+
         for rid in run_ids:
             for rec in _jsonl_records_for_run(BUCKET_NAME, LLM_PREFIX, rid):
                 pid = rec.get("post_id")
                 if not pid:
+                    skipped_records += 1
+                    print(f"[DEBUG] Skipping record, missing post_id: {rec}")
                     continue
                 prev = latest_by_post.get(pid)
                 if (prev is None) or (_run_id_to_dt(rec["run_id"]) > _run_id_to_dt(prev["run_id"])):
@@ -99,19 +104,27 @@ def materialize_llm_http(request: Request):
         columns = sorted(columns)
 
         final_key = f"{LLM_PREFIX}/datasets/listings_master-llm.csv"
-        with _open_gcs_text_writer(BUCKET_NAME, final_key) as out:
-            writer = csv.DictWriter(out, fieldnames=columns)
-            writer.writeheader()
-            for r in records:
-                writer.writerow(r)
+        if records:
+            with _open_gcs_text_writer(BUCKET_NAME, final_key) as out:
+                writer = csv.DictWriter(out, fieldnames=columns)
+                writer.writeheader()
+                for r in records:
+                    writer.writerow(r)
+                    written_records += 1
+                    print(f"[DEBUG] Wrote record for post_id={r.get('post_id')}")
+
+        print(f"[INFO] Runs scanned: {len(run_ids)}, Skipped records: {skipped_records}, Written records: {written_records}")
 
         return jsonify({
             "ok": True,
             "runs_scanned": len(run_ids),
             "unique_listings": len(records),
             "columns": columns,
+            "skipped_records": skipped_records,
+            "written_records": written_records,
             "output_csv": f"gs://{BUCKET_NAME}/{final_key}"
         })
 
     except Exception as e:
+        print(f"[ERROR] {type(e).__name__}: {e}")
         return jsonify({"ok": False, "error": f"{type(e).__name__}: {e}"}), 500
