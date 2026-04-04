@@ -1,0 +1,342 @@
+feature,importance
+mileage,0.7860074915327645
+year,0.2517122662035781
+vehicle_type_sedan,0.025069936514315928
+condition_excellent,0.007189560014397833
+seller_type_dealer,0.005454718166475203
+condition_like new,0.004617312309346655
+condition_good,0.0033739111394243348
+model_F-150,0.0030763175879072735
+make_Ford,0.0022950539122089885
+vehicle_type_pickup,0.002206707542063069
+condition_Used,0.002046663620146494
+seller_type_owner,0.001058628382969462
+has_issues_True,0.0008885145126612537
+make_Nissan,0.0007269811002372118
+make_Audi,0.0006756056041189006
+make_toyota,0.0006675905618035216
+make_Mercedes-Benz,0.00042433838805360223
+make_Toyota,0.0003679497001411125
+make_jeep,0.0001451164136250016
+make_Kia,3.132786126405218e-05
+model_Neon,2.18111724050285e-05
+model_Fiesta S,0.0
+model_F250,0.0
+model_F150 XLT extended cab 4D 6 1/2 FT,0.0
+model_F150,0.0
+make_acura,0.0
+model_Explorer,0.0
+model_Escape,0.0
+make_subaru,0.0
+make_nissan,0.0
+make_mercedes-benz,0.0
+make_lexus,0.0
+model_Durango,0.0
+model_Defender 90,0.0
+model_D5500,0.0
+model_Cx-5,0.0
+make_tesla,0.0
+model_Malibu LT,0.0
+model_MDX,0.0
+model_M-Class 4MATIC 4dr ML 350,0.0
+model_Liberty Limited Sport,0.0
+model_Maxima,0.0
+model_Lacrosse CXL,0.0
+model_LC 500,0.0
+model_Fusion,0.0
+model_CHEROKEE LATITUDE 4x4,0.0
+model_C-Class,0.0
+model_C 300 four matic,0.0
+model_Avalanche 1500 ltz 4x4,0.0
+model_Acadia,0.0
+model_GS 300,0.0
+model_GL 450 4MATIC,0.0
+model_Fusion Hybrid,0.0
+model_Jetta,0.0
+model_9-2X Aero AWD HATCHBACK,0.0
+model_328i X-drive AWD Sedan,0.0
+model_325i,0.0
+make_volkswagen,0.0
+make_bmw,0.0
+make_Jeep,0.0
+make_Jaguar,0.0
+model_Mazda3,0.0
+make_INFINITI,0.0
+make_Hyundai,0.0
+make_cadillac,0.0
+make_chrysler,0.0
+make_Honda,0.0
+make_GMC,0.0
+make_honda,0.0
+make_Chrysler,0.0
+make_JEEP,0.0
+model_Corolla,0.0
+model_Civic,0.0
+model_Charger,0.0
+model_Camry,0.0
+model_Camaro IROC-Z,0.0
+model_CR-V LX,0.0
+model_COBALT,0.0
+make_VW,0.0
+model_A3,0.0
+make_Saab,0.0
+make_Ram,0.0
+make_Oldsmobile,0.0
+model_ATS-4 AWD Sport Sedan,0.0
+model_ATS Sedan,0.0
+model_A6 45 TFSI Premium,0.0
+model_A5,0.0
+model_A4,0.0
+model_Mazda5 Sport Minivan,0.0
+title_status_rebuilt,0.0
+title_status_missing,0.0
+seller_type_private,0.0
+model_wrangler,0.0
+model_Sonic,0.0
+model_Sonata,0.0
+model_Silverado 2500,0.0
+model_impreza,0.0
+model_El Camino,0.0
+model_fusion se,0.0
+model_escalade,0.0
+model_ecosport s,0.0
+model_e350 super duty cutaway,0.0
+model_cr-v,0.0
+model_corolla le,0.0
+model_colorado,0.0
+model_cls550,0.0
+model_cj7,0.0
+model_grand cherokee laredo,0.0
+llm_ts_2026-02-25T22:12:54.060628Z,0.0
+llm_ts_2026-02-25T22:12:52.119125Z,0.0
+llm_ts_2026-02-25T22:12:49.997794Z,0.0
+llm_ts_2026-02-25T22:12:47.767428Z,0.0
+llm_ts_2026-02-25T22:12:44.847950Z,0.0
+condition_used,0.0
+"condition_runs and drives fine, rear quarter damage",0.0
+condition_needs work,0.0
+condition_fair,0.0
+vehicle_type_Sport Utility,0.0
+llm_ts_2026-02-25T22:14:09.310050Z,0.0
+model_altima 2.5 sv,0.0
+model_altima,0.0
+condition_Excellent Condition,0.0
+vehicle_type_minivan,0.0
+vehicle_type_coupe,0.0
+vehicle_type_convertible,0.0
+vehicle_type_car,0.0
+vehicle_type_Wagon,0.0
+model_camaro,0.0
+model_Grand Caravan,0.0
+model_Silverado 1500 Z71 LT 6 1/2FT,0.0
+model_Sierra 2500 HD SLE,0.0
+model_Sierra 1500,0.0
+model_Seltos EX,0.0
+model_S-class S550,0.0
+model_Rogue,0.0
+model_Ranger,0.0
+model_civic,0.0
+model_ProMaster 1500,0.0
+model_Prius Two,0.0
+model_Prius C Four,0.0
+model_Equinox,0.0
+make_Volkswagen,0.0
+model_Eighty-Eight Royale Base 4dr,0.0
+model_Econoline Cargo Van e-250,0.0
+model_Econoline Cargo Van E-250,0.0
+model_Model Y,0.0
+model_Q50,0.0
+model_cherokee,0.0
+model_Pathfinder,0.0
+model_Outback Limited AWD Wagon,0.0
+model_Mustang Convertible,0.0
+model_accord,0.0
+model_XV Crosstrek,0.0
+model_XTS,0.0
+model_XF,0.0
+model_X3 2.8i X-drive Premium SUV,0.0
+model_Grand Cherokee,0.0
+model_Wrangler Sahara,0.0
+model_Tlx,0.0
+model_Tiguan S,0.0
+model_Taurus,0.0
+model_Sprinter C2500/C3500,0.0
+model_Soul +,0.0
+model_JETTA SE,0.0
+model_Impreza,0.0
+model_Grand Cherokee L,0.0
+model_X1 M Sport,0.0
+llm_ts_2026-04-04T14:26:42.947640Z,0.0
+llm_ts_2026-04-04T14:26:40.939649Z,0.0
+llm_ts_2026-04-04T14:26:38.466315Z,0.0
+llm_ts_2026-04-04T14:26:33.058283Z,0.0
+llm_ts_2026-04-04T14:28:25.052121Z,0.0
+llm_ts_2026-04-04T14:28:15.977357Z,0.0
+llm_ts_2026-04-04T14:28:10.199063Z,0.0
+llm_ts_2026-02-25T22:16:05.569490Z,0.0
+llm_ts_2026-02-25T22:16:01.009422Z,0.0
+llm_ts_2026-04-04T14:34:08.667653Z,0.0
+llm_ts_2026-02-25T22:15:37.420989Z,0.0
+llm_ts_2026-02-25T22:15:24.908770Z,0.0
+llm_ts_2026-02-25T22:15:19.030555Z,0.0
+llm_ts_2026-02-25T22:15:12.882621Z,0.0
+llm_ts_2026-02-25T22:15:06.719136Z,0.0
+llm_ts_2026-02-25T22:15:01.307318Z,0.0
+llm_ts_2026-02-25T22:14:56.093333Z,0.0
+llm_ts_2026-02-25T22:14:51.309692Z,0.0
+llm_ts_2026-02-25T22:14:38.031160Z,0.0
+llm_ts_2026-02-25T22:15:56.087791Z,0.0
+llm_ts_2026-04-04T14:27:43.976977Z,0.0
+llm_ts_2026-04-04T14:27:41.694467Z,0.0
+llm_ts_2026-04-04T14:27:39.619573Z,0.0
+llm_ts_2026-04-04T14:27:39.604824Z,0.0
+llm_ts_2026-04-04T14:27:36.975023Z,0.0
+llm_ts_2026-04-04T14:27:35.367219Z,0.0
+llm_ts_2026-04-04T14:27:33.682344Z,0.0
+llm_ts_2026-04-04T14:27:31.382203Z,0.0
+llm_ts_2026-04-04T14:28:59.767712Z,0.0
+llm_ts_2026-04-04T14:26:45.405038Z,0.0
+llm_ts_2026-04-04T14:28:56.306803Z,0.0
+llm_ts_2026-04-04T14:27:23.469179Z,0.0
+llm_ts_2026-04-04T14:27:21.200775Z,0.0
+llm_ts_2026-04-04T14:27:20.268360Z,0.0
+llm_ts_2026-04-04T14:27:17.966205Z,0.0
+llm_ts_2026-04-04T14:27:13.068428Z,0.0
+llm_ts_2026-04-04T14:26:56.627488Z,0.0
+llm_ts_2026-04-04T14:26:54.384582Z,0.0
+llm_ts_2026-04-04T14:26:49.492188Z,0.0
+llm_ts_2026-04-04T14:28:56.535227Z,0.0
+model_tiguan,0.0
+model_taurus,0.0
+model_tacoma,0.0
+model_silverado 1500 rst z-71 4x4 crew,0.0
+model_silverado,0.0
+model_rx350L,0.0
+model_ranger 4x4 sport,0.0
+model_quest sl,0.0
+model_pickup,0.0
+llm_ts_2026-02-25T22:14:28.546398Z,0.0
+model_malibu,0.0
+model_liberty sport,0.0
+llm_ts_2026-02-25T22:14:21.699789Z,0.0
+llm_ts_2026-02-25T22:14:16.354791Z,0.0
+llm_ts_2026-02-25T22:12:55.729072Z,0.0
+vehicle_type_van,0.0
+vehicle_type_wagon,0.0
+condition_GREAT CONDITIONS!,0.0
+model_tlx,0.0
+model_outback 2.5i premium awd,0.0
+llm_ts_2026-04-04T14:27:30.763990Z,0.0
+llm_ts_2026-04-04T14:27:25.825313Z,0.0
+llm_ts_2026-04-04T14:27:25.383107Z,0.0
+llm_ts_2026-02-25T22:14:02.794236Z,0.0
+llm_ts_2026-02-25T22:13:57.312770Z,0.0
+llm_ts_2026-02-25T22:13:51.818741Z,0.0
+llm_ts_2026-02-25T22:13:46.271040Z,0.0
+llm_ts_2026-02-25T22:13:40.635675Z,0.0
+llm_ts_2026-02-25T22:13:34.859707Z,0.0
+model_town and country limited,0.0
+llm_ts_2026-02-25T22:13:21.208616Z,0.0
+llm_ts_2026-02-25T22:13:15.008370Z,0.0
+llm_ts_2026-02-25T22:13:08.509190Z,0.0
+llm_ts_2026-02-25T22:13:01.809010Z,0.0
+llm_ts_2026-02-25T22:12:59.671830Z,0.0
+llm_ts_2026-02-25T22:12:57.412513Z,0.0
+llm_ts_2026-04-04T14:26:30.847528Z,0.0
+llm_ts_2026-02-25T22:16:14.506863Z,0.0
+llm_ts_2026-02-25T22:16:10.096011Z,0.0
+llm_ts_2026-02-25T22:13:30.353357Z,0.0
+llm_ts_2026-04-04T14:31:53.667621Z,0.0
+llm_ts_2026-04-04T14:31:49.643569Z,0.0
+llm_ts_2026-04-04T14:31:44.428824Z,0.0
+llm_ts_2026-04-04T14:31:40.178831Z,0.0
+make_Chevy,0.0
+make_Chevrolet,0.0
+make_CHEVROLET,0.0
+llm_ts_2026-04-04T14:31:13.608717Z,0.0
+llm_ts_2026-04-04T14:31:07.832358Z,0.0
+llm_ts_2026-04-04T14:27:44.255708Z,0.0
+llm_ts_2026-04-04T14:30:59.770144Z,0.0
+llm_ts_2026-04-04T14:30:57.034958Z,0.0
+llm_ts_2026-04-04T14:30:54.899333Z,0.0
+llm_ts_2026-04-04T14:30:54.818333Z,0.0
+llm_ts_2026-04-04T14:30:51.496551Z,0.0
+llm_ts_2026-04-04T14:30:51.346366Z,0.0
+llm_ts_2026-04-04T14:30:49.303105Z,0.0
+llm_ts_2026-04-04T14:30:47.970902Z,0.0
+llm_ts_2026-04-04T14:30:45.396387Z,0.0
+llm_ts_2026-04-04T14:31:02.844724Z,0.0
+make_Buick,0.0
+llm_ts_2026-04-04T14:34:13.870871Z,0.0
+llm_ts_2026-04-04T14:34:03.792560Z,0.0
+llm_ts_2026-04-04T14:33:57.957406Z,0.0
+llm_ts_2026-04-04T14:33:51.033387Z,0.0
+llm_ts_2026-04-04T14:33:45.663776Z,0.0
+llm_ts_2026-04-04T14:33:39.668837Z,0.0
+llm_ts_2026-04-04T14:33:28.597284Z,0.0
+llm_ts_2026-04-04T14:33:24.360439Z,0.0
+llm_ts_2026-04-04T14:31:58.567867Z,0.0
+make_Land Rover,0.0
+llm_ts_2026-04-04T14:33:03.167635Z,0.0
+llm_ts_2026-04-04T14:32:57.667313Z,0.0
+llm_ts_2026-04-04T14:32:48.711147Z,0.0
+llm_ts_2026-04-04T14:32:39.823555Z,0.0
+llm_ts_2026-04-04T14:32:34.764314Z,0.0
+llm_ts_2026-04-04T14:32:26.591748Z,0.0
+llm_ts_2026-04-04T14:32:16.191620Z,0.0
+llm_ts_2026-04-04T14:32:10.139323Z,0.0
+make_Mazda,0.0
+llm_ts_2026-04-04T14:28:49.421944Z,0.0
+llm_ts_2026-04-04T14:28:47.044144Z,0.0
+llm_ts_2026-04-04T14:28:46.979059Z,0.0
+llm_ts_2026-04-04T14:28:43.775419Z,0.0
+llm_ts_2026-04-04T14:28:43.144598Z,0.0
+llm_ts_2026-04-04T14:28:39.584744Z,0.0
+llm_ts_2026-04-04T14:28:35.792238Z,0.0
+llm_ts_2026-04-04T14:28:33.838304Z,0.0
+llm_ts_2026-04-04T14:28:33.622912Z,0.0
+llm_ts_2026-04-04T14:30:42.172615Z,0.0
+llm_ts_2026-04-04T14:28:28.769909Z,0.0
+llm_ts_2026-04-04T14:28:28.624105Z,0.0
+llm_ts_2026-04-04T14:30:39.462042Z,0.0
+llm_ts_2026-04-04T14:30:36.002466Z,0.0
+llm_ts_2026-04-04T14:30:31.764352Z,0.0
+llm_ts_2026-04-04T14:28:04.529589Z,0.0
+llm_ts_2026-04-04T14:27:59.767629Z,0.0
+llm_ts_2026-04-04T14:27:54.197802Z,0.0
+llm_ts_2026-04-04T14:27:48.857152Z,0.0
+llm_ts_2026-04-04T14:28:31.213043Z,0.0
+llm_ts_2026-04-04T14:33:19.939665Z,0.0
+llm_ts_2026-04-04T14:33:14.955329Z,0.0
+llm_ts_2026-04-04T14:33:08.269500Z,0.0
+llm_ts_2026-04-04T14:30:29.472737Z,0.0
+llm_ts_2026-04-04T14:30:26.178118Z,0.0
+llm_ts_2026-04-04T14:30:22.684237Z,0.0
+llm_ts_2026-04-04T14:30:13.317166Z,0.0
+llm_ts_2026-04-04T14:30:08.613515Z,0.0
+llm_ts_2026-04-04T14:30:04.571858Z,0.0
+llm_ts_2026-04-04T14:28:53.169244Z,0.0
+llm_ts_2026-04-04T14:29:52.324518Z,0.0
+llm_ts_2026-04-04T14:29:46.168033Z,0.0
+llm_ts_2026-04-04T14:29:32.768094Z,0.0
+llm_ts_2026-04-04T14:29:24.767585Z,0.0
+llm_ts_2026-04-04T14:29:16.819308Z,0.0
+llm_ts_2026-04-04T14:29:08.765139Z,0.0
+llm_ts_2026-04-04T14:31:34.367776Z,0.0
+llm_ts_2026-04-04T14:31:27.795301Z,0.0
+llm_ts_2026-04-04T14:31:21.931343Z,0.0
+llm_ts_2026-04-04T14:29:58.767785Z,0.0
+make_chevy,-1.7742997885594748e-06
+make_BMW,-6.637931320296886e-06
+model_Versa,-7.31680650751354e-05
+make_Cadillac,-9.216643475757902e-05
+vehicle_type_truck,-0.00010164733136708293
+make_chevrolet,-0.00024768089784259483
+model_Outback,-0.0006093258358611964
+vehicle_type_hatchback,-0.000715662810230211
+make_Subaru,-0.000879500844895631
+make_Dodge,-0.0013008203458694466
+make_ford,-0.0013229312624095436
+run_id,-0.0020546904327989777
+vehicle_type_SUV,-0.002334010556008259
+make_Lexus,-0.0035301633607432324
